@@ -9,34 +9,13 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            List<IApplicant> applicants = new List<IApplicant>();
+            // This main method should only control program flow.
 
-            Person person = (Person)ClassInstanceGenerator.CreatePerson();
-            person.FirstName = "John";
-            person.LastName = "Doe";
-            applicants.Add(person);
+            List<IApplicant> applicants = EmployeeProcessor.GetAppliants();
 
-            Manager manager = (Manager)ClassInstanceGenerator.CreateManager();
-            manager.FirstName = "Jane";
-            manager.LastName = "Doe";
-            applicants.Add(manager);
+            List<EmployeeModel> employees = EmployeeProcessor.EmployApplicants(applicants);
 
-            Executive executive = (Executive)ClassInstanceGenerator.CreateExecutive();
-            executive.FirstName = "Tom";
-            executive.LastName = "Thumb";
-            applicants.Add(executive);
-
-            List<EmployeeModel> employees = new List<EmployeeModel>();
-
-            foreach (var employee in applicants)
-            {
-                employees.Add(employee.AccountProcessor.Create(person));
-            }
-
-            foreach (var emp in employees)
-            {
-                Console.WriteLine($"{ emp.FirstName } { emp.LastName }: { emp.EmailAddress } IsManager: { emp.IsManager } IsExecutive: { emp.IsExecutive }");
-            }
+            EmployeeProcessor.DisplayEmployees(employees);
 
             Console.ReadLine();
         }
