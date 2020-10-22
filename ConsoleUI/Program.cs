@@ -9,18 +9,28 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            List<IApplicant> applicants = new List<IApplicant>
-            {
-                new Person { FirstName = "John", LastName = "Doe" },
-                new Manager { FirstName = "Jane", LastName = "Doe" },
-                new Executive { FirstName = "Tom", LastName = "Thumb" }
-            };
+            List<IApplicant> applicants = new List<IApplicant>();
+
+            Person person = (Person)ClassInstanceGenerator.CreatePerson();
+            person.FirstName = "John";
+            person.LastName = "Doe";
+            applicants.Add(person);
+
+            Manager manager = (Manager)ClassInstanceGenerator.CreateManager();
+            manager.FirstName = "Jane";
+            manager.LastName = "Doe";
+            applicants.Add(manager);
+
+            Executive executive = (Executive)ClassInstanceGenerator.CreateExecutive();
+            executive.FirstName = "Tom";
+            executive.LastName = "Thumb";
+            applicants.Add(executive);
 
             List<EmployeeModel> employees = new List<EmployeeModel>();
 
-            foreach (var person in applicants)
+            foreach (var employee in applicants)
             {
-                employees.Add(person.AccountProcessor.Create(person));
+                employees.Add(employee.AccountProcessor.Create(person));
             }
 
             foreach (var emp in employees)
